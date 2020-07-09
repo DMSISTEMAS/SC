@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="org.cce.sistema.model.Bautismo" table="bautismo" catalog="db_cce" optimistic-lock="version">
+        <id name="idBautismo" type="java.lang.Integer">
+            <column name="idBautismo" />
+            <generator class="identity" />
+        </id>
+        <property name="parroquia" type="string">
+            <column name="parroquia" length="100" />
+        </property>
+        <property name="lugar" type="string">
+            <column name="lugar" length="100" />
+        </property>
+        <set name="catequizados" table="catequizado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idBautismo" />
+            </key>
+            <one-to-many class="org.cce.sistema.model.Catequizado" />
+        </set>
+    </class>
+</hibernate-mapping>

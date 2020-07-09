@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="org.cce.sistema.model.Porcentaje" table="porcentaje" catalog="db_cce" optimistic-lock="version">
+        <id name="idPorcentaje" type="java.lang.Integer">
+            <column name="idPorcentaje" />
+            <generator class="identity" />
+        </id>
+        <property name="misa" type="java.lang.Long">
+            <column name="misa" precision="10" scale="0" />
+        </property>
+        <property name="tareas" type="java.lang.Long">
+            <column name="tareas" precision="10" scale="0" />
+        </property>
+        <property name="extras" type="java.lang.Long">
+            <column name="extras" precision="10" scale="0" />
+        </property>
+        <property name="catequesis" type="java.lang.Long">
+            <column name="catequesis" precision="10" scale="0" />
+        </property>
+        <property name="asistencia" type="java.lang.Long">
+            <column name="asistencia" precision="10" scale="0" />
+        </property>
+        <property name="evaluacion" type="java.lang.Long">
+            <column name="evaluacion" precision="10" scale="0" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="100" />
+        </property>
+        <set name="registros" table="registro" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idPorcentaje" />
+            </key>
+            <one-to-many class="org.cce.sistema.model.Registro" />
+        </set>
+    </class>
+</hibernate-mapping>

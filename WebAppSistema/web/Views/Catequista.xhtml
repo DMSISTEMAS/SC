@@ -1,0 +1,449 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <link
+            href="https://fonts.googleapis.com/css?family=Barlow:300display=swap"
+            rel="stylesheet" />
+    </h:head>
+    <body>
+        <ui:composition template="/Template/Template.xhtml">
+
+            <ui:define name="top">
+
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panel id="topbar" header="ADMINISTRACIÓN DE
+                             CATEQUISTAS" footer="BARRA DE TAREAS" style="margin: 0 auto; text-align: center; font-size: 12px; font-family: 'Barlow', sans-serif">
+                        <p:toolbar>
+                            <f:facet name="left">
+                                <table border="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30px">NUEVO</th>
+                                            <th></th>
+                                            <th style="width: 10px"></th>
+                                            <th></th>
+                                            <th style="width: 10px"></th>
+                                            <th></th>
+                                            <th style="width: 10px"></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 30px">
+                                                <p:commandButton value=""
+                                                                 oncomplete="PF('dlgAgregar').show()"
+                                                                 style="height: 50px; width: 50px; background-image: url('/img/new.png') !important; 
+                                                                 background-size: 50px; background-repeat: no-repeat"
+                                                                 title="Agregar nuevo registro" update="frmAgregar" /></td>
+                                            <td></td>
+                                            <td style="width: 10px"></td>
+                                            <td></td>
+                                            <td style="width: 10px"></td>
+                                            <td></td>
+                                            <td style="width: 10px"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </f:facet>
+
+                            <f:facet name="right">
+
+                            </f:facet>
+
+                        </p:toolbar>
+                    </p:panel>
+                </h:form>
+                <!--Barra de tareas-->
+
+                <!--Formulario principal-->
+                <h:form id="frmPrincipal">
+                    <p:growl id="messages" showDetail="true" showSummary="true" />
+                    <p:panel id="pnlPrincipal" header="REGISTROS" footer="BY DMSISTEMAS 2020 ©"
+                             style="margin: 0 auto; text-align: center; font-size: 12px; font-family: 'Barlow', sans-serif">
+                        <p:layoutUnit id="tablaPrincipal" position="center"
+                                      style="padding: 5px; text-align: center;">
+                            <p:dataTable var="var" value="#{catequista.listaCatequista}"
+                                         sortMode="multiple" scrollable="true" scrollHeight="435"
+                                         scrollWidth="100%"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="10,20,50,100,200,500" rows="10"
+                                         reflow="true" paginator="true" rowHover="true"
+                                         currentPageReportTemplate="Registros #{catequista.listaCatequista.size()}"
+                                         paginatorAlwaysVisible="true" emptyMessage="No hay registros">
+
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{var.nombre}" />
+                                </p:column>
+
+                                <p:column headerText="Apellido paterno">
+                                    <h:outputText value="#{var.apellidoPaterno}" />
+                                </p:column>
+
+                                <p:column headerText="Apellido materno">
+                                    <h:outputText value="#{var.apellidoMaterno}" />
+                                </p:column>
+
+                                <p:column headerText="Dirección">
+                                    <h:outputText value="#{var.direccion.calle} , #{var.numero.numeroCasa}, #{var.municipio.nombre}, #{var.codigo.colonia}" />
+                                </p:column>
+
+                                <p:column headerText="Teléfono">
+                                    <h:outputText value="#{var.telefono}" />
+                                </p:column>
+
+                                <p:column headerText="Fecha de nacimiento">
+                                    <h:outputText value="#{var.fechaNacimiento}" />
+                                </p:column>
+
+                                <p:column headerText="Editar" style="width: 4%">
+                                    <p:commandButton value=""
+                                                     style="height: 28px; width: 28px; background-image: url('/img/edit.png') !important;
+                                                     background-size: 26px; background-repeat: no-repeat"
+                                                     title="Editar registro" oncomplete="PF('dlgEditar').show()"
+                                                     update="frmEditar">
+                                        <f:setPropertyActionListener value="#{var}"
+                                                                     target="#{catequista.catequista}" />
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column headerText="..." style="width: 4%">
+                                    <p:commandButton value=""
+                                                     style="height: 28px; width: 28px; background-image: url('/img/delete.png') !important;
+                                                     background-size: 26px; background-repeat: no-repeat"
+                                                     title="Borrar registro" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:layoutUnit>
+                    </p:panel>
+                </h:form>
+                <!--Formulario principal-->
+
+
+                <!--Diálogo para agregar-->
+                <h:form id="frmAgregar">
+
+                    <p:dialog id="dialogo" widgetVar="dlgAgregar"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="800" style="font-size: 13px">
+                        <p:panel id="pnlAgregar">
+                            <p:messages id="msg" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelAgregar" columns="3"
+                                         style="margin: 0 auto;">
+
+                                <p:outputLabel for="nombre" value="Nombre" />
+                                <p:inputText id="nombre" value="#{catequista.catequista.nombre}"
+                                             required="true" requiredMessage="Requiere nombre"
+                                             style="width: 300px">
+                                    <p:message for="nombre" />
+                                </p:inputText>
+                                <p:outputLabel value=""/>
+
+                                <p:outputLabel for="ap" value="Apellido paterno" />
+                                <p:inputText id="ap"
+                                             value="#{catequista.catequista.apellidoPaterno}" required="true"
+                                             requiredMessage="Requiere apellido paterno" style="width: 300px">
+                                    <p:message for="ap" />
+                                </p:inputText>
+                                <p:outputLabel value=""/>
+
+                                <p:outputLabel for="am" value="Apellido materno" />
+                                <p:inputText id="am"
+                                             value="#{catequista.catequista.apellidoMaterno}" required="true"
+                                             requiredMessage="Requiere apellido materno" style="width: 300px">
+                                    <p:message for="am" />
+                                </p:inputText>
+                                <p:outputLabel value=""/>
+
+                                <p:outputLabel for="tel" value="Teléfono" />
+                                <p:inputMask id="tel" value="#{catequista.catequista.telefono}"
+                                             required="true" requiredMessage="Requiere teléfono"
+                                             mask="(999) 999-9999">
+                                    <p:message for="tel" />
+                                </p:inputMask>
+                                <p:outputLabel value=""/>
+
+                                <p:outputLabel for="fecha" value="Fecha de nacimiento" />
+                                <p:calendar id="fecha" yearRange="1950:2025" effect="blind"
+                                            effectDuration="13000" pages="2" showOn="button"
+                                            style="width: 150px;"
+                                            value="#{catequista.catequista.fechaNacimiento}" required="true"
+                                            placeholder="Fecha de nacimiento" pattern="yyyy-MM-dd"
+                                            mask="true">
+                                    <p:message for="fecha" />
+                                </p:calendar>
+                                <p:outputLabel value=""/>
+
+                                <p:outputLabel value="Ingresa Calle"
+                                               for="byDireccion" />
+                                <p:autoComplete id="byDireccion" size="55"
+                                                onfocus="javascript:this.select()"
+                                                placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
+                                                value="#{catequista.address}"
+                                                completeMethod="#{catequista.completeDireccion}"
+                                                required="true" requiredMessage="Campo requerido">
+                                    <p:message for="byDireccion" />
+                                </p:autoComplete>
+                                <p:commandButton value="+" update="frmAgregarDir:direccion" oncomplete="PF('dlgDireccion').show()"/>
+
+                                <p:outputLabel value="Ingresa Número"
+                                               for="byNumero" />
+                                <p:autoComplete id="byNumero" size="55"
+                                                onfocus="javascript:this.select()"
+                                                placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
+                                                value="#{catequista.numero}"
+                                                completeMethod="#{catequista.completeNumero}"
+                                                required="true" requiredMessage="Campo requerido">
+                                    <p:message for="byNumero" />
+                                </p:autoComplete>
+                                <p:commandButton value="+" update="frmAgregarNum:nocasa" oncomplete="PF('dlgNumero').show()"/>
+
+
+                                <p:outputLabel value="Ingresa Código"
+                                               for="byCodigo" />
+                                <p:autoComplete id="byCodigo" size="55"
+                                                onfocus="javascript:this.select()"
+                                                placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
+                                                value="#{catequista.codigo}"
+                                                completeMethod="#{catequista.completeCodigo}"
+                                                required="true" requiredMessage="Campo requerido">
+                                    <p:message for="byCodigo" />
+                                </p:autoComplete>
+                                <p:commandButton value="+" update="frmAgregarCod:panelCodigo" oncomplete="PF('dlgCodigo').show()"/>
+
+                                <p:outputLabel value="Ingresa Municipio"
+                                               for="byMunicipio" />
+                                <p:autoComplete id="byMunicipio" size="55"
+                                                onfocus="javascript:this.select()"
+                                                placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
+                                                value="#{catequista.municipio}"
+                                                completeMethod="#{catequista.completeMunicipio}"
+                                                required="true" requiredMessage="Campo requerido">
+                                    <p:message for="byMunicipio" />
+                                </p:autoComplete>
+                                <p:commandButton value="+" update="frmAgregarMun:panelMunicipio" oncomplete="PF('dlgMunicipio').show()"/>
+
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="700" height="20" />
+
+                        <p:commandButton id="track"
+                                         style="height: 40px; width: 40px; background-image: url('/img/save.png') !important;
+                                         background-size: 40px; background-repeat: no-repeat"
+                                         value="" update="pnlAgregar, msg" title="Guardar registro"
+                                         actionListener="#{catequista.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+
+                </h:form>
+                <!--Diálogo para agregar-->
+
+                <!--Diálogo para editar-->
+                <h:form id="frmEditar">
+                    <p:growl id="msgEditar" showDetail="true" showSummary="true" />
+                    <p:dialog id="dialogoEditar"
+                              header="Editar registro de: #{catequista.catequista.nombre} #{catequista.catequista.apellidoPaterno} #{catequista.catequista.apellidoMaterno}"
+                              widgetVar="dlgEditar" resizable="true" showEffect="clip"
+                              hideEffect="fold" style="font-size: 13px">
+                        <p:panelGrid id="pnlEditar" columns="2">
+
+                            <p:outputLabel value="Nombre" />
+                            <p:inputText value="#{catequista.catequista.nombre}"
+                                         style="width: 300px" placeholder="Nombre" />
+
+                            <p:outputLabel value="Apellido paterno" />
+                            <p:inputText value="#{catequista.catequista.apellidoPaterno}"
+                                         style="width: 300px" placeholder="Apellido paterno" />
+
+                            <p:outputLabel value="Apellido materno" />
+                            <p:inputText value="#{catequista.catequista.apellidoMaterno}"
+                                         style="width: 300px" placeholder="Apellido materno" />
+
+                            <p:outputLabel value="Teléfono" />
+                            <p:inputMask value="#{catequista.catequista.telefono}"
+                                         style="width: 200px" placeholder="Teléfono" 
+                                         mask="(999) 999-9999"/>
+
+                            <p:outputLabel value="Fecha de nacimiento" />
+                            <p:calendar yearRange="1950:2025" effect="blind"
+                                        effectDuration="13000" pages="2" showOn="button"
+                                        style="width: 150px;"
+                                        value="#{catequista.catequista.fechaNacimiento}"
+                                        required="true" placeholder="Fecha de nacimiento"
+                                        pattern="yyyy-MM-dd" mask="true">
+                            </p:calendar>
+
+                        </p:panelGrid>
+                        <br></br>
+                        <p:spacer height="50" width="470" />
+
+                        <p:commandButton value=""
+                                         style="height:
+                                         50px; width: 50px; background-image:
+                                         url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat:
+                                         no-repeat"
+                                         title="Actualizar registro"
+                                         actionListener="#{catequizado.actualizar()}"
+                                         oncomplete="PF('dlgEditar').hide()" update="frmPrincipal" />
+                    </p:dialog>
+                </h:form>
+                <!--Diálogo para editar-->
+
+
+                <!--Diálogo para agregar la dirección-->
+                <h:form id="frmAgregarDir">
+
+                    <p:dialog id="dlgDir" widgetVar="dlgDireccion"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="600">
+                        <p:panel id="pnlDireccion">
+                            <p:messages id="msgDir" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelDireccion" columns="2"
+                                         style="margin: 0 auto; width: 100%; font-size: 14px">
+
+                                <p:outputLabel for="direccion" value="Nombre de la calle" />
+                                <p:inputText id="direccion" value="#{direccion.direccion.calle}"
+                                             required="true" requiredMessage="Requiere nombre de la calle"
+                                             style="width: 100%">
+                                    <p:message for="direccion" />
+                                </p:inputText>
+
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="520" height="5" />
+                        <p:commandButton id="trackDir"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         value="" update="frmAgregar:msg" title="Guardar registro" oncomplete="PF('dlgDireccion').hide()"
+                                         actionListener="#{direccion.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Inicia Diálogo para agregar la dirección-->
+
+                <h:form id="frmAgregarNum">
+                    <p:dialog id="dlgNum" widgetVar="dlgNumero"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="600">
+                        <p:panel id="pnlNumero">
+                            <p:messages id="msgNumero" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelNumero" columns="2"
+                                         style="margin: 0 auto; width: 100%; font-size: 14px">
+
+                                <p:outputLabel for="nocasa" value="Número de casa" />
+                                <p:inputText id="nocasa" value="#{numero.numero.numeroCasa}"
+                                             required="true" requiredMessage="Requiere número de casa"
+                                             style="width: 100%">
+                                    <p:message for="nocasa" />
+                                </p:inputText>
+
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="520" height="5" />
+                        <p:commandButton id="trackNumero"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         value="" update="frmAgregar:msg" title="Guardar registro" oncomplete="PF('dlgNumero').hide()"
+                                         actionListener="#{numero.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Fin Diálogo para agregar la dirección-->
+
+                <!--Inicia Diálogo para agregar código-->
+                <h:form id="frmAgregarCod">
+
+                    <p:dialog id="dlgCodigo" widgetVar="dlgCodigo"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="600">
+                        <p:panel id="pnlCodigo">
+                            <p:messages id="msgCodigo" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelCodigo" columns="2"
+                                         style="margin: 0 auto; width: 100%; font-size: 14px">
+
+                                <p:outputLabel for="codigo" value="Código postal" />
+                                <p:inputText id="codigo" value="#{codigo.codigo.codigoPostal}"
+                                             required="true" requiredMessage="Requiere código postal"
+                                             style="width: 100%">
+                                    <p:message for="codigo" />
+                                </p:inputText>
+
+                                <p:outputLabel for="colonia" value="Colonia" />
+                                <p:inputText id="colonia" value="#{codigo.codigo.colonia}"
+                                             required="true" requiredMessage="Requiere colonia"
+                                             style="width: 100%">
+                                    <p:message for="colonia" />
+                                </p:inputText>
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="520" height="5" />
+                        <p:commandButton id="track"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         value="" update="frmAgregar:msg" title="Guardar registro" oncomplete="PF('dlgCodigo').hide()"
+                                         actionListener="#{codigo.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Inicia Diálogo para agregar código-->
+
+                <!--Inicia Diálogo para agregar-->
+                <h:form id="frmAgregarMun">
+
+                    <p:dialog id="dlgMunicipio" widgetVar="dlgMunicipio"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="600">
+                        <p:panel id="pnlMunicipio">
+                            <p:messages id="msg" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelMunicipio" columns="2"
+                                         style="margin: 0 auto; width: 100%; font-size: 14px">
+
+                                <p:outputLabel for="nombre" value="Nombre del municipio" />
+                                <p:inputText id="nombre" value="#{municipio.municipio.nombre}"
+                                             required="true" requiredMessage="Requiere nombre del libro"
+                                             style="width: 100%">
+                                    <p:message for="nombre" />
+                                </p:inputText>
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="520" height="5" />
+                        <p:commandButton id="trackMunicipio"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         value="" update="frmAgregar:msg" title="Guardar registro" oncomplete="PF('dlgMunicipio').hide()"
+                                         actionListener="#{municipio.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Fin Diálogo para agregar Municipio-->
+
+
+            </ui:define>
+
+
+        </ui:composition>
+    </body>
+</html>

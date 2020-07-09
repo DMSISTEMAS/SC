@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xml:lang="es"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet name="/css/default.css" />
+	<h:outputStylesheet name="/css/cssLayout.css" />
+	<link href="/resources/css/estilo_menu.css" rel="stylesheet"
+		type="text/css" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Barlow:300display=swap"
+		rel="stylesheet" />
+	<!-- 		href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></link> -->
+	<title>Sistema</title>
+
+</h:head>
+
+<h:body>
+
+	<h:body>
+
+		<div id="top">
+			<h1>SISTEMA DE ADMINISTRACIÓN Y CONTROL DE CATECISMO</h1>
+			<div id="menuPrincipal">
+				<h:form>
+					<p:menubar>
+						<p:submenu label="Home" icon="ui-icon-home">
+							<p:menuitem value="Cerrar sesión" icon="ui-icon-circle-close"
+								action="/index?faces-redirect=true"
+								actionListener="#{usuario.cerrarSesion()}" />
+						</p:submenu>
+						<p:submenu label="Control" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Registros de catequesis" outcome="/Views/Control"
+								icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Administrar" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Catequistas" outcome="/Views/Catequista"
+								icon="ui-icon-gear" />
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Catequizados" outcome="/Views/Catequizado"
+								icon="ui-icon-gear" />
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Libros" outcome="/Views/Libro" icon="ui-icon-gear" />
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Horarios" outcome="/Views/Horario" icon="ui-icon-gear" />
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Presbitero" outcome="/Views/Parroquia"
+								icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Inscripciones" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Inscripciones" outcome="/Views/Inscripciones"
+								icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Reportes" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Registros de catequesis" outcome="/Views/Control"
+								icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Municipio" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Municipios" outcome="/Views/Municipio"
+								icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Bautismo" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Lugar y Parroquia" outcome="/Views/Bautismo"
+								icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Porcentaje" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Porcentajes calificación" outcome="/Views/Porcentaje"
+								icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Número de casa" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Números" outcome="/Views/Numero" icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Código postal" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Código postal" outcome="/Views/Codigo" icon="ui-icon-gear" />
+						</p:submenu>
+						<p:submenu label="Dirección" icon="ui-icon-plus">
+							<p:menuitem
+								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
+								value="Dirección" outcome="/Views/Direccion" icon="ui-icon-gear" />
+						</p:submenu>
+					</p:menubar>
+				</h:form>
+
+			</div>
+			<ui:insert name="top">
+
+			</ui:insert>
+		</div>
+
+		<div id="content" class="center_content">
+			<ui:insert name="content">Content</ui:insert>
+
+		</div>
+
+<!--		<div id="bottom">
+			<ui:insert name="bottom">&copy; DM SISTEMAS 2020</ui:insert>
+		</div>-->
+
+	</h:body>
+
+</h:body>
+
+</html>

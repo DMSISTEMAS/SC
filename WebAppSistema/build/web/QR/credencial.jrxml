@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credencial" pageWidth="210" pageHeight="297" columnWidth="200" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="0b5eab21-653e-4f9c-9adb-25b0a4f950db">
+	<property name="ireport.zoom" value="1.3660269107301415"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     catequizado.`idCatequizado` AS catequizado_idCatequizado,
+     catequizado.`nombre` AS catequizado_nombre,
+     catequizado.`apellidoPaterno` AS catequizado_apellidoPaterno,
+     catequizado.`apellidoMaterno` AS catequizado_apellidoMaterno,
+     catequizado.`foto` AS catequizado_foto,
+     registro.`idRegistro` AS registro_idRegistro,
+     registro.`idCiclo` AS registro_idCiclo,
+     registro.`idParroquia` AS registro_idParroquia,
+     ciclo.`idCiclo` AS ciclo_idCiclo,
+     ciclo.`nombre` AS ciclo_nombre,
+     ciclo.`estatus` AS ciclo_estatus,
+     horario.`idHorario` AS horario_idHorario,
+     horario.`dia` AS horario_dia,
+     horario.`horaInicio` AS horario_horaInicio,
+     horario.`horaFin` AS horario_horaFin,
+     horario.`inicioCiclo` AS horario_inicioCiclo,
+     horario.`nombre` AS horario_nombre,
+     horario.`estatus` AS horario_estatus,
+     parroquia.`idParroquia` AS parroquia_idParroquia,
+     parroquia.`diocesis` AS parroquia_diocesis,
+     parroquia.`decanato` AS parroquia_decanato,
+     parroquia.`parroquia` AS parroquia_parroquia,
+     parroquia.`presbitero` AS parroquia_presbitero,
+     catequista.`nombre` AS catequista_nombre,
+     catequista.`apellidoPaterno` AS catequista_apellidoPaterno,
+     catequista.`apellidoMaterno` AS catequista_apellidoMaterno,
+     libro.`idLibro` AS libro_idLibro,
+     libro.`nombre` AS libro_nombre,
+     libro.`descripcion` AS libro_descripcion,
+     parroquia.`logo` AS parroquia_logo
+FROM
+     `catequizado` catequizado INNER JOIN `registro` registro ON catequizado.`idCatequizado` = registro.`idCatequizado`
+     INNER JOIN `ciclo` ciclo ON registro.`idCiclo` = ciclo.`idCiclo`
+     INNER JOIN `horario` horario ON registro.`idHorario` = horario.`idHorario`
+     INNER JOIN `parroquia` parroquia ON registro.`idParroquia` = parroquia.`idParroquia`
+     INNER JOIN `catequista` catequista ON registro.`idCatequista` = catequista.`idCatequista`
+     INNER JOIN `libro` libro ON registro.`idLibro` = libro.`idLibro`
+WHERE
+     registro.`idRegistro` = $P{ID}]]>
+	</queryString>
+	<field name="catequizado_idCatequizado" class="java.lang.Integer"/>
+	<field name="catequizado_nombre" class="java.lang.String"/>
+	<field name="catequizado_apellidoPaterno" class="java.lang.String"/>
+	<field name="catequizado_apellidoMaterno" class="java.lang.String"/>
+	<field name="catequizado_foto" class="java.io.InputStream"/>
+	<field name="registro_idRegistro" class="java.lang.Integer"/>
+	<field name="registro_idCiclo" class="java.lang.Integer"/>
+	<field name="registro_idParroquia" class="java.lang.Integer"/>
+	<field name="ciclo_idCiclo" class="java.lang.Integer"/>
+	<field name="ciclo_nombre" class="java.lang.String"/>
+	<field name="ciclo_estatus" class="java.lang.Boolean"/>
+	<field name="horario_idHorario" class="java.lang.Integer"/>
+	<field name="horario_dia" class="java.lang.String"/>
+	<field name="horario_horaInicio" class="java.sql.Time"/>
+	<field name="horario_horaFin" class="java.sql.Time"/>
+	<field name="horario_inicioCiclo" class="java.sql.Date"/>
+	<field name="horario_nombre" class="java.lang.String"/>
+	<field name="horario_estatus" class="java.lang.Boolean"/>
+	<field name="parroquia_idParroquia" class="java.lang.Integer"/>
+	<field name="parroquia_diocesis" class="java.lang.String"/>
+	<field name="parroquia_decanato" class="java.lang.String"/>
+	<field name="parroquia_parroquia" class="java.lang.String"/>
+	<field name="parroquia_presbitero" class="java.lang.String"/>
+	<field name="catequista_nombre" class="java.lang.String"/>
+	<field name="catequista_apellidoPaterno" class="java.lang.String"/>
+	<field name="catequista_apellidoMaterno" class="java.lang.String"/>
+	<field name="libro_idLibro" class="java.lang.Integer"/>
+	<field name="libro_nombre" class="java.lang.String"/>
+	<field name="libro_descripcion" class="java.lang.String"/>
+	<field name="parroquia_logo" class="java.io.InputStream"/>
+	<group name="registro_idRegistro">
+		<groupExpression><![CDATA[$F{registro_idRegistro}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageFooter>
+		<band height="264" splitType="Stretch">
+			<image>
+				<reportElement x="45" y="120" width="103" height="108" uuid="463e3c32-7c82-4701-b622-e19ef08b749f"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(
+
+    new com.google.zxing.qrcode.QRCodeWriter().encode($F{registro_idRegistro}  +"xTo" +"4852015df6b8f58b4ae6235bb5b9958e8d7bb45fcdb15dc1db91cd8fdabb461862462ad72d16b44c199801b5e40575ffd544eda0d8c011a58e6b4b87640c92a2", com.google.zxing.BarcodeFormat.QR_CODE, 300, 300))]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="91" width="198" height="27" forecolor="#000033" uuid="ce1975b9-ce0e-4f63-9ca3-2595d151aae3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{catequizado_nombre} +" " + $F{catequizado_apellidoPaterno} + " " +$F{catequizado_apellidoMaterno}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-12" y="-27" width="230" height="50" backcolor="#000033" uuid="c7084f1a-848d-4ecc-a8b4-6a80974b6d68"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<image>
+				<reportElement x="10" y="-24" width="41" height="37" uuid="1781f1c9-7be1-4bcc-8b7a-6d5bc984afbb"/>
+				<imageExpression><![CDATA[$F{parroquia_logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="40" y="-24" width="178" height="34" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="bf4491cc-4325-4145-b172-a386db5eae51"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARROQUIA DE SAN PEDRO APÓSTOL]]></text>
+			</staticText>
+			<image>
+				<reportElement x="65" y="28" width="76" height="68" uuid="d2557b63-7099-46ae-ac16-d10070f64938"/>
+				<imageExpression><![CDATA[$F{catequizado_foto}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="-12" y="240" width="230" height="24" backcolor="#000033" uuid="140269ed-c480-4c66-9cd8-556c404c583d"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="241" width="201" height="23" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="d6876db9-84dc-4dad-ab73-c2073a2d3fc3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SAN PEDRO ZICTEPEC, TENANGO DEL VALLE, ESTADO DE MÉXICO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="5" y="118" width="187" height="2" backcolor="#000033" uuid="541e6162-ad6e-4337-bc58-9c93e6e2fcc5"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="120" width="17" height="120" forecolor="#990033" uuid="1b03baf6-4f60-4866-8300-6bf55aecb81e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CICLO "+ $F{ciclo_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="120" width="17" height="120" forecolor="#990033" uuid="07bfe7a9-e8ac-41d0-a9b8-c51df49c2e56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libro_nombre} +" " +$F{libro_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="220" width="201" height="20" forecolor="#990033" uuid="c0e43d60-4934-4310-98ae-af3af1f315c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CATEQUISTA: " + $F{catequista_nombre} + " " +$F{catequista_apellidoPaterno} + " " + $F{catequista_apellidoMaterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-12" y="10" width="230" height="12" forecolor="#FFFFFF" uuid="0f4628eb-275a-49ed-9394-343cd7c6d341"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PBRO. " + $F{parroquia_presbitero}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
