@@ -1,5 +1,5 @@
 package org.cce.sistema.model;
-// Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1
+// Generated 14/07/2020 11:18:25 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

@@ -81,6 +81,8 @@ public class ParroquiaDaoImp implements ParroquiaDao {
 			session.beginTransaction();
 			session.delete(parroquia);
 			session.getTransaction().commit();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "CCE", "Registro borrado con éxito"));
 		} catch (HibernateException e) {
 			System.err.println(e.getMessage());
 			session.getTransaction().rollback();
@@ -98,7 +100,7 @@ public class ParroquiaDaoImp implements ParroquiaDao {
 		List<String> lista = null;
 		Session session = HibernateUtil.getSf().openSession();
 		Transaction t = session.beginTransaction();
-		String hql = "SELECT DISTINCT parroquia || ' ' || presbitero || '_' || idParroquia FROM Parroquia WHERE parroquia LIKE'"
+		String hql = "SELECT DISTINCT lugar ||  '_' || idParroquia FROM Parroquia WHERE lugar LIKE'"
 				+ nombre + "%'";
 		try {
 			lista = session.createQuery(hql).list();

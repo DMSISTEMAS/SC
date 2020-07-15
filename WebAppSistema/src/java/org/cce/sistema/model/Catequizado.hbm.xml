@@ -1,27 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 14/07/2020 11:18:25 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="org.cce.sistema.model.Catequizado" table="catequizado" catalog="db_cce" optimistic-lock="version">
         <id name="idCatequizado" type="java.lang.Integer">
             <column name="idCatequizado" />
             <generator class="identity" />
         </id>
-        <many-to-one name="bautismo" class="org.cce.sistema.model.Bautismo" fetch="select">
-            <column name="idBautismo" />
-        </many-to-one>
-        <many-to-one name="codigo" class="org.cce.sistema.model.Codigo" fetch="select">
-            <column name="idCodigo" />
-        </many-to-one>
         <many-to-one name="direccion" class="org.cce.sistema.model.Direccion" fetch="select">
             <column name="idDireccion" />
         </many-to-one>
         <many-to-one name="municipio" class="org.cce.sistema.model.Municipio" fetch="select">
             <column name="idMunicipio" />
         </many-to-one>
-        <many-to-one name="numero" class="org.cce.sistema.model.Numero" fetch="select">
-            <column name="idNumero" />
+        <many-to-one name="parroquia" class="org.cce.sistema.model.Parroquia" fetch="select">
+            <column name="idParroquia" />
         </many-to-one>
         <property name="nombre" type="string">
             <column name="nombre" length="100" />
@@ -61,6 +55,9 @@
         </property>
         <property name="fechaBautismo" type="date">
             <column name="fechaBautismo" length="10" />
+        </property>
+        <property name="registroEstado" type="string">
+            <column name="registroEstado" length="20" />
         </property>
         <set name="registros" table="registro" inverse="true" lazy="true" fetch="select">
             <key>

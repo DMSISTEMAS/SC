@@ -1,5 +1,5 @@
 package org.cce.sistema.model;
-// Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1
+// Generated 14/07/2020 11:18:25 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,32 +13,30 @@ public class Catequista  implements java.io.Serializable {
 
 
      private Integer idCatequista;
-     private Codigo codigo;
      private Direccion direccion;
      private Municipio municipio;
-     private Numero numero;
      private String nombre;
      private String apellidoPaterno;
      private String apellidoMaterno;
      private String telefono;
      private Date fechaNacimiento;
      private String foto;
+     private Integer idCodigo;
      private Set registros = new HashSet(0);
 
     public Catequista() {
     }
 
-    public Catequista(Codigo codigo, Direccion direccion, Municipio municipio, Numero numero, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Date fechaNacimiento, String foto, Set registros) {
-       this.codigo = codigo;
+    public Catequista(Direccion direccion, Municipio municipio, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, Date fechaNacimiento, String foto, Integer idCodigo, Set registros) {
        this.direccion = direccion;
        this.municipio = municipio;
-       this.numero = numero;
        this.nombre = nombre;
        this.apellidoPaterno = apellidoPaterno;
        this.apellidoMaterno = apellidoMaterno;
        this.telefono = telefono;
        this.fechaNacimiento = fechaNacimiento;
        this.foto = foto;
+       this.idCodigo = idCodigo;
        this.registros = registros;
     }
    
@@ -48,13 +46,6 @@ public class Catequista  implements java.io.Serializable {
     
     public void setIdCatequista(Integer idCatequista) {
         this.idCatequista = idCatequista;
-    }
-    public Codigo getCodigo() {
-        return this.codigo;
-    }
-    
-    public void setCodigo(Codigo codigo) {
-        this.codigo = codigo;
     }
     public Direccion getDireccion() {
         return this.direccion;
@@ -69,13 +60,6 @@ public class Catequista  implements java.io.Serializable {
     
     public void setMunicipio(Municipio municipio) {
         this.municipio = municipio;
-    }
-    public Numero getNumero() {
-        return this.numero;
-    }
-    
-    public void setNumero(Numero numero) {
-        this.numero = numero;
     }
     public String getNombre() {
         return this.nombre;
@@ -118,6 +102,13 @@ public class Catequista  implements java.io.Serializable {
     
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+    public Integer getIdCodigo() {
+        return this.idCodigo;
+    }
+    
+    public void setIdCodigo(Integer idCodigo) {
+        this.idCodigo = idCodigo;
     }
     public Set getRegistros() {
         return this.registros;

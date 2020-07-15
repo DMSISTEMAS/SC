@@ -102,9 +102,9 @@
                                 </p:column>
 
                                 <p:column headerText="Dirección">
-                                    <h:outputText value="#{var.direccion.calle} , #{var.numero.numeroCasa}, #{var.municipio.nombre}, #{var.codigo.colonia}" />
+                                    <h:outputText value="#{var.direccion.calle}, #{var.municipio.nombre}" />
                                 </p:column>
-
+                                
                                 <p:column headerText="Teléfono">
                                     <h:outputText value="#{var.telefono}" />
                                 </p:column>
@@ -204,31 +204,6 @@
                                 </p:autoComplete>
                                 <p:commandButton value="+" update="frmAgregarDir:direccion" oncomplete="PF('dlgDireccion').show()"/>
 
-                                <p:outputLabel value="Ingresa Número"
-                                               for="byNumero" />
-                                <p:autoComplete id="byNumero" size="55"
-                                                onfocus="javascript:this.select()"
-                                                placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
-                                                value="#{catequista.numero}"
-                                                completeMethod="#{catequista.completeNumero}"
-                                                required="true" requiredMessage="Campo requerido">
-                                    <p:message for="byNumero" />
-                                </p:autoComplete>
-                                <p:commandButton value="+" update="frmAgregarNum:nocasa" oncomplete="PF('dlgNumero').show()"/>
-
-
-                                <p:outputLabel value="Ingresa Código"
-                                               for="byCodigo" />
-                                <p:autoComplete id="byCodigo" size="55"
-                                                onfocus="javascript:this.select()"
-                                                placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
-                                                value="#{catequista.codigo}"
-                                                completeMethod="#{catequista.completeCodigo}"
-                                                required="true" requiredMessage="Campo requerido">
-                                    <p:message for="byCodigo" />
-                                </p:autoComplete>
-                                <p:commandButton value="+" update="frmAgregarCod:panelCodigo" oncomplete="PF('dlgCodigo').show()"/>
-
                                 <p:outputLabel value="Ingresa Municipio"
                                                for="byMunicipio" />
                                 <p:autoComplete id="byMunicipio" size="55"
@@ -308,6 +283,37 @@
                 </h:form>
                 <!--Diálogo para editar-->
 
+                              <!--Inicia Diálogo para agregar-->
+                <h:form id="frmAgregarMun">
+
+                    <p:dialog id="dlgMunicipio" widgetVar="dlgMunicipio"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="600">
+                        <p:panel id="pnlMunicipio">
+                            <p:messages id="msg" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelMunicipio" columns="2"
+                                         style="margin: 0 auto; width: 100%; font-size: 14px">
+
+                                <p:outputLabel for="nombre" value="Nombre del municipio" />
+                                <p:inputText id="nombre" value="#{municipio.municipio.nombre}"
+                                             required="true" requiredMessage="Requiere nombre del libro"
+                                             style="width: 100%">
+                                    <p:message for="nombre" />
+                                </p:inputText>
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="520" height="5" />
+                        <p:commandButton id="trackMunicipio"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         value="" update="frmAgregar:msg" title="Guardar registro"
+                                         oncomplete="PF('dlgMunicipio').hide()"
+                                         actionListener="#{municipio.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Fin Diálogo para agregar Municipio-->
 
                 <!--Diálogo para agregar la dirección-->
                 <h:form id="frmAgregarDir">
@@ -370,76 +376,6 @@
                     </p:dialog>
                 </h:form>
                 <!--Fin Diálogo para agregar la dirección-->
-
-                <!--Inicia Diálogo para agregar código-->
-                <h:form id="frmAgregarCod">
-
-                    <p:dialog id="dlgCodigo" widgetVar="dlgCodigo"
-                              header="Agregar nuevo registro" showEffect="clip"
-                              hideEffect="explode" resizable="false" responsive="true"
-                              width="600">
-                        <p:panel id="pnlCodigo">
-                            <p:messages id="msgCodigo" showDetail="true" closable="true" />
-                            <p:panelGrid id="panelCodigo" columns="2"
-                                         style="margin: 0 auto; width: 100%; font-size: 14px">
-
-                                <p:outputLabel for="codigo" value="Código postal" />
-                                <p:inputText id="codigo" value="#{codigo.codigo.codigoPostal}"
-                                             required="true" requiredMessage="Requiere código postal"
-                                             style="width: 100%">
-                                    <p:message for="codigo" />
-                                </p:inputText>
-
-                                <p:outputLabel for="colonia" value="Colonia" />
-                                <p:inputText id="colonia" value="#{codigo.codigo.colonia}"
-                                             required="true" requiredMessage="Requiere colonia"
-                                             style="width: 100%">
-                                    <p:message for="colonia" />
-                                </p:inputText>
-                            </p:panelGrid>
-                        </p:panel>
-                        <p:spacer width="520" height="5" />
-                        <p:commandButton id="track"
-                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
-                                         background-size: 50px; background-repeat: no-repeat"
-                                         value="" update="frmAgregar:msg" title="Guardar registro" oncomplete="PF('dlgCodigo').hide()"
-                                         actionListener="#{codigo.guardar()}">
-                        </p:commandButton>
-                    </p:dialog>
-                </h:form>
-                <!--Inicia Diálogo para agregar código-->
-
-                <!--Inicia Diálogo para agregar-->
-                <h:form id="frmAgregarMun">
-
-                    <p:dialog id="dlgMunicipio" widgetVar="dlgMunicipio"
-                              header="Agregar nuevo registro" showEffect="clip"
-                              hideEffect="explode" resizable="false" responsive="true"
-                              width="600">
-                        <p:panel id="pnlMunicipio">
-                            <p:messages id="msg" showDetail="true" closable="true" />
-                            <p:panelGrid id="panelMunicipio" columns="2"
-                                         style="margin: 0 auto; width: 100%; font-size: 14px">
-
-                                <p:outputLabel for="nombre" value="Nombre del municipio" />
-                                <p:inputText id="nombre" value="#{municipio.municipio.nombre}"
-                                             required="true" requiredMessage="Requiere nombre del libro"
-                                             style="width: 100%">
-                                    <p:message for="nombre" />
-                                </p:inputText>
-                            </p:panelGrid>
-                        </p:panel>
-                        <p:spacer width="520" height="5" />
-                        <p:commandButton id="trackMunicipio"
-                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
-                                         background-size: 50px; background-repeat: no-repeat"
-                                         value="" update="frmAgregar:msg" title="Guardar registro" oncomplete="PF('dlgMunicipio').hide()"
-                                         actionListener="#{municipio.guardar()}">
-                        </p:commandButton>
-                    </p:dialog>
-                </h:form>
-                <!--Fin Diálogo para agregar Municipio-->
-
 
             </ui:define>
 

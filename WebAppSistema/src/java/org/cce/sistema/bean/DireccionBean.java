@@ -10,7 +10,6 @@ import javax.inject.Named;
 import org.cce.sistema.dao.DireccionDao;
 import org.cce.sistema.imp.DireccionDaoImp;
 import org.cce.sistema.model.Direccion;
-import org.primefaces.context.RequestContext;
 
 @Named("direccion")
 @ViewScoped

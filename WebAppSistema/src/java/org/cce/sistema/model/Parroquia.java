@@ -1,5 +1,5 @@
 package org.cce.sistema.model;
-// Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1
+// Generated 14/07/2020 11:18:25 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,23 +12,21 @@ public class Parroquia  implements java.io.Serializable {
 
 
      private Integer idParroquia;
-     private String diocesis;
-     private String decanato;
-     private String parroquia;
-     private String presbitero;
-     private byte[] logo;
-     private Set registros = new HashSet(0);
+     private String lugar;
+     private int idParroquia_1;
+     private Set catequizados = new HashSet(0);
 
     public Parroquia() {
     }
 
-    public Parroquia(String diocesis, String decanato, String parroquia, String presbitero, byte[] logo, Set registros) {
-       this.diocesis = diocesis;
-       this.decanato = decanato;
-       this.parroquia = parroquia;
-       this.presbitero = presbitero;
-       this.logo = logo;
-       this.registros = registros;
+	
+    public Parroquia(int idParroquia_1) {
+        this.idParroquia_1 = idParroquia_1;
+    }
+    public Parroquia(String lugar, int idParroquia_1, Set catequizados) {
+       this.lugar = lugar;
+       this.idParroquia_1 = idParroquia_1;
+       this.catequizados = catequizados;
     }
    
     public Integer getIdParroquia() {
@@ -38,47 +36,26 @@ public class Parroquia  implements java.io.Serializable {
     public void setIdParroquia(Integer idParroquia) {
         this.idParroquia = idParroquia;
     }
-    public String getDiocesis() {
-        return this.diocesis;
+    public String getLugar() {
+        return this.lugar;
     }
     
-    public void setDiocesis(String diocesis) {
-        this.diocesis = diocesis;
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
     }
-    public String getDecanato() {
-        return this.decanato;
-    }
-    
-    public void setDecanato(String decanato) {
-        this.decanato = decanato;
-    }
-    public String getParroquia() {
-        return this.parroquia;
+    public int getIdParroquia_1() {
+        return this.idParroquia_1;
     }
     
-    public void setParroquia(String parroquia) {
-        this.parroquia = parroquia;
+    public void setIdParroquia_1(int idParroquia_1) {
+        this.idParroquia_1 = idParroquia_1;
     }
-    public String getPresbitero() {
-        return this.presbitero;
-    }
-    
-    public void setPresbitero(String presbitero) {
-        this.presbitero = presbitero;
-    }
-    public byte[] getLogo() {
-        return this.logo;
+    public Set getCatequizados() {
+        return this.catequizados;
     }
     
-    public void setLogo(byte[] logo) {
-        this.logo = logo;
-    }
-    public Set getRegistros() {
-        return this.registros;
-    }
-    
-    public void setRegistros(Set registros) {
-        this.registros = registros;
+    public void setCatequizados(Set catequizados) {
+        this.catequizados = catequizados;
     }
 
 

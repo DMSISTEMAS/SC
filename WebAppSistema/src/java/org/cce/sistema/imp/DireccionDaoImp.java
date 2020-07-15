@@ -94,7 +94,8 @@ public class DireccionDaoImp implements DireccionDao {
 
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<String> listarDireccion(String nombre) {
         List<String> lista = null;
         Session session = HibernateUtil.getSf().openSession();

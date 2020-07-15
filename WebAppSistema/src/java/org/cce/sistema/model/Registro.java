@@ -1,5 +1,5 @@
 package org.cce.sistema.model;
-// Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1
+// Generated 14/07/2020 11:18:25 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -18,7 +18,7 @@ public class Registro  implements java.io.Serializable {
      private Ciclo ciclo;
      private Horario horario;
      private Libro libro;
-     private Parroquia parroquia;
+     private Parroco parroco;
      private Porcentaje porcentaje;
      private Long costo;
      private Date alta;
@@ -29,13 +29,13 @@ public class Registro  implements java.io.Serializable {
     public Registro() {
     }
 
-    public Registro(Catequista catequista, Catequizado catequizado, Ciclo ciclo, Horario horario, Libro libro, Parroquia parroquia, Porcentaje porcentaje, Long costo, Date alta, String estado, Set calificacions, Set bitacoras) {
+    public Registro(Catequista catequista, Catequizado catequizado, Ciclo ciclo, Horario horario, Libro libro, Parroco parroco, Porcentaje porcentaje, Long costo, Date alta, String estado, Set calificacions, Set bitacoras) {
        this.catequista = catequista;
        this.catequizado = catequizado;
        this.ciclo = ciclo;
        this.horario = horario;
        this.libro = libro;
-       this.parroquia = parroquia;
+       this.parroco = parroco;
        this.porcentaje = porcentaje;
        this.costo = costo;
        this.alta = alta;
@@ -86,12 +86,12 @@ public class Registro  implements java.io.Serializable {
     public void setLibro(Libro libro) {
         this.libro = libro;
     }
-    public Parroquia getParroquia() {
-        return this.parroquia;
+    public Parroco getParroco() {
+        return this.parroco;
     }
     
-    public void setParroquia(Parroquia parroquia) {
-        this.parroquia = parroquia;
+    public void setParroco(Parroco parroco) {
+        this.parroco = parroco;
     }
     public Porcentaje getPorcentaje() {
         return this.porcentaje;

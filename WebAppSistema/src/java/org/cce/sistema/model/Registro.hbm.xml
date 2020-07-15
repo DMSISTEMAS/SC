@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 14/07/2020 11:18:25 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="org.cce.sistema.model.Registro" table="registro" catalog="db_cce" optimistic-lock="version">
         <id name="idRegistro" type="java.lang.Integer">
@@ -23,8 +23,8 @@
         <many-to-one name="libro" class="org.cce.sistema.model.Libro" fetch="select">
             <column name="idLibro" />
         </many-to-one>
-        <many-to-one name="parroquia" class="org.cce.sistema.model.Parroquia" fetch="select">
-            <column name="idParroquia" />
+        <many-to-one name="parroco" class="org.cce.sistema.model.Parroco" fetch="select">
+            <column name="idParroco" />
         </many-to-one>
         <many-to-one name="porcentaje" class="org.cce.sistema.model.Porcentaje" fetch="select">
             <column name="idPorcentaje" />

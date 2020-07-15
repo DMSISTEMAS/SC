@@ -1,5 +1,5 @@
 package org.cce.sistema.model;
-// Generated 3/07/2020 02:30:29 PM by Hibernate Tools 4.3.1
+// Generated 14/07/2020 11:18:25 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -13,14 +13,18 @@ public class Municipio  implements java.io.Serializable {
 
      private Integer idMunicipio;
      private String nombre;
+     private Integer codigoPostal;
+     private String colonia;
      private Set catequistas = new HashSet(0);
      private Set catequizados = new HashSet(0);
 
     public Municipio() {
     }
 
-    public Municipio(String nombre, Set catequistas, Set catequizados) {
+    public Municipio(String nombre, Integer codigoPostal, String colonia, Set catequistas, Set catequizados) {
        this.nombre = nombre;
+       this.codigoPostal = codigoPostal;
+       this.colonia = colonia;
        this.catequistas = catequistas;
        this.catequizados = catequizados;
     }
@@ -38,6 +42,20 @@ public class Municipio  implements java.io.Serializable {
     
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    public Integer getCodigoPostal() {
+        return this.codigoPostal;
+    }
+    
+    public void setCodigoPostal(Integer codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+    public String getColonia() {
+        return this.colonia;
+    }
+    
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
     }
     public Set getCatequistas() {
         return this.catequistas;

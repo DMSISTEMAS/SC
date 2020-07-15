@@ -3,20 +3,18 @@
 
 <hibernate-reverse-engineering>
     <schema-selection match-catalog="db_cce"/>
-    <table-filter match-name="catequista"/>
-    <table-filter match-name="porcentaje"/>
-    <table-filter match-name="municipio"/>
-    <table-filter match-name="direccion"/>
-    <table-filter match-name="parroquia"/>
-    <table-filter match-name="ciclo"/>
-    <table-filter match-name="horario"/>
-    <table-filter match-name="bitacora"/>
-    <table-filter match-name="codigo"/>
-    <table-filter match-name="numero"/>
-    <table-filter match-name="calificacion"/>
-    <table-filter match-name="usuario"/>
-    <table-filter match-name="libro"/>
     <table-filter match-name="catequizado"/>
+    <table-filter match-name="parroquia"/>
+    <table-filter match-name="bitacora"/>
+    <table-filter match-name="catequista"/>
+    <table-filter match-name="direccion"/>
+    <table-filter match-name="usuario"/>
     <table-filter match-name="registro"/>
-    <table-filter match-name="bautismo"/>
+    <table-filter match-name="municipio"/>
+    <table-filter match-name="calificacion"/>
+    <table-filter match-name="parroco"/>
+    <table-filter match-name="ciclo"/>
+    <table-filter match-name="libro"/>
+    <table-filter match-name="horario"/>
+    <table-filter match-name="porcentaje"/>
 </hibernate-reverse-engineering>

@@ -11,25 +11,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
-import org.cce.sistema.dao.BautismoDao;
 
 import org.cce.sistema.dao.CatequizadoDao;
-import org.cce.sistema.dao.CodigoDao;
 import org.cce.sistema.dao.DireccionDao;
 import org.cce.sistema.dao.MunicipioDao;
-import org.cce.sistema.dao.NumeroDao;
-import org.cce.sistema.imp.BautismoDaoImp;
+import org.cce.sistema.dao.ParroquiaDao;
 import org.cce.sistema.imp.CatequizadoDaoImp;
-import org.cce.sistema.imp.CodigoDaoImp;
 import org.cce.sistema.imp.DireccionDaoImp;
 import org.cce.sistema.imp.MunicipioDaoImp;
-import org.cce.sistema.imp.NumeroDaoImp;
-import org.cce.sistema.model.Bautismo;
+import org.cce.sistema.imp.ParroquiaDaoImp;
 import org.cce.sistema.model.Catequizado;
-import org.cce.sistema.model.Codigo;
 import org.cce.sistema.model.Direccion;
 import org.cce.sistema.model.Municipio;
-import org.cce.sistema.model.Numero;
+import org.cce.sistema.model.Parroquia;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 
@@ -46,21 +40,17 @@ public class CatequizadoBean implements Serializable {
     private String codigo;
     private String municipio;
     private String numero;
-    private String bautismo;
+    private String lugar;
     private Direccion d;
-    private Numero n;
-    private Codigo c;
     private Municipio m;
-    private Bautismo b;
+    private Parroquia p;
     private Catequizado catequizadoEditar;
 
     public CatequizadoBean() {
         this.catequizado = new Catequizado();
         this.d = new Direccion();
-        this.n = new Numero();
-        this.c = new Codigo();
         this.m = new Municipio();
-        this.b = new Bautismo();
+        this.p = new Parroquia();
         this.catequizadoEditar = new Catequizado();
     }
 
@@ -120,12 +110,12 @@ public class CatequizadoBean implements Serializable {
         this.numero = numero;
     }
 
-    public String getBautismo() {
-        return bautismo;
+    public String getLugar() {
+        return lugar;
     }
 
-    public void setBautismo(String bautismo) {
-        this.bautismo = bautismo;
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
     }
 
     public Direccion getD() {
@@ -136,22 +126,6 @@ public class CatequizadoBean implements Serializable {
         this.d = d;
     }
 
-    public Numero getN() {
-        return n;
-    }
-
-    public void setN(Numero n) {
-        this.n = n;
-    }
-
-    public Codigo getC() {
-        return c;
-    }
-
-    public void setC(Codigo c) {
-        this.c = c;
-    }
-
     public Municipio getM() {
         return m;
     }
@@ -160,12 +134,12 @@ public class CatequizadoBean implements Serializable {
         this.m = m;
     }
 
-    public Bautismo getB() {
-        return b;
+    public Parroquia getP() {
+        return p;
     }
 
-    public void setB(Bautismo b) {
-        this.b = b;
+    public void setP(Parroquia p) {
+        this.p = p;
     }
 
     public Catequizado getCatequizadoEditar() {
@@ -199,18 +173,6 @@ public class CatequizadoBean implements Serializable {
         this.d.setIdDireccion(Integer.parseInt(dire[1]));
         this.catequizado.setDireccion(d);
 
-        // COLOCAMOS EL ID DEL NÚMERO
-        String[] nume;
-        nume = this.numero.split("_");
-        this.n.setIdNumero(Integer.parseInt(nume[1]));
-        this.catequizado.setNumero(n);
-
-        // COLOCAMOS EL ID DEL CÓDIGO
-        String[] code;
-        code = this.codigo.split("_");
-        this.c.setIdCodigo(Integer.parseInt(code[1]));
-        this.catequizado.setCodigo(c);
-
         // COLOCAMOS EL ID DEL MUNICIPIO
         String[] muni;
         muni = this.municipio.split("_");
@@ -218,20 +180,19 @@ public class CatequizadoBean implements Serializable {
         this.catequizado.setMunicipio(m);
 
         // COLOCAMOS EL ID DEL BAUTISMO
-        String[] bau;
-        bau = this.bautismo.split("_");
-        this.b.setIdBautismo(Integer.parseInt(bau[2]));
-        this.catequizado.setBautismo(b);
-
-        //COLOCAMOS LA FOTO 
+//		String[] bau;
+//		bau = this.lugar.split("_");
+//		this.p.setIdParroquia(Integer.parseInt(bau[2]));
+//		this.catequizado.setParroquia(p);
+        // COLOCAMOS LA FOTO
         catequizado.setFoto(file.getContents());
 
-        //COLOCAMOS LA FECHA DE ALTA
+        // COLOCAMOS LA FECHA DE ALTA
         Date fechaAlta = new Date();
         this.catequizado.setFechaAlta(fechaAlta);
-        
+
         this.catequizado.setEstado("Alta");
-        
+
         cDao.guardar(catequizado);
         RequestContext.getCurrentInstance().update("frmPrincipal");
         RequestContext.getCurrentInstance().execute("PF('dlgAgregar').hide()");
@@ -254,37 +215,26 @@ public class CatequizadoBean implements Serializable {
     }
 
     public List<String> completeDireccion(String nombre) {
+        @SuppressWarnings("UnusedAssignment")
         List<String> resultNombre = new ArrayList<>();
         DireccionDao cDao = new DireccionDaoImp();
         resultNombre = cDao.listarDireccion(nombre);
         return resultNombre;
     }
 
-    public List<String> completeCodigo(String nombre) {
-        List<String> resultNombre = new ArrayList<>();
-        CodigoDao cDao = new CodigoDaoImp();
-        resultNombre = cDao.listarCodigo(nombre);
-        return resultNombre;
-    }
-
     public List<String> completeMunicipio(String nombre) {
+        @SuppressWarnings("UnusedAssignment")
         List<String> resultNombre = new ArrayList<>();
         MunicipioDao cDao = new MunicipioDaoImp();
         resultNombre = cDao.listarMunicipio(nombre);
         return resultNombre;
     }
 
-    public List<String> completeNumero(String nombre) {
+    public List<String> completeParroquia(String nombre) {
+        @SuppressWarnings("UnusedAssignment")
         List<String> resultNombre = new ArrayList<>();
-        NumeroDao cDao = new NumeroDaoImp();
-        resultNombre = cDao.listarNumero(nombre);
-        return resultNombre;
-    }
-
-    public List<String> completeBautismo(String nombre) {
-        List<String> resultNombre = new ArrayList<>();
-        BautismoDao cDao = new BautismoDaoImp();
-        resultNombre = cDao.listarBautismo(nombre);
+        ParroquiaDao cDao = new ParroquiaDaoImp();
+        resultNombre = cDao.listarParroquia(nombre);
         return resultNombre;
     }
 

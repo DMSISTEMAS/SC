@@ -15,7 +15,7 @@
      catequizado.`foto` AS catequizado_foto,
      registro.`idRegistro` AS registro_idRegistro,
      registro.`idCiclo` AS registro_idCiclo,
-     registro.`idParroquia` AS registro_idParroquia,
+     registro.`idParroco` AS registro_idParroquia,
      ciclo.`idCiclo` AS ciclo_idCiclo,
      ciclo.`nombre` AS ciclo_nombre,
      ciclo.`estatus` AS ciclo_estatus,
@@ -26,23 +26,23 @@
      horario.`inicioCiclo` AS horario_inicioCiclo,
      horario.`nombre` AS horario_nombre,
      horario.`estatus` AS horario_estatus,
-     parroquia.`idParroquia` AS parroquia_idParroquia,
-     parroquia.`diocesis` AS parroquia_diocesis,
-     parroquia.`decanato` AS parroquia_decanato,
-     parroquia.`parroquia` AS parroquia_parroquia,
-     parroquia.`presbitero` AS parroquia_presbitero,
+     parroco.`idParroco` AS parroquia_idParroquia,
+     parroco.`diocesis` AS parroquia_diocesis,
+     parroco.`decanato` AS parroquia_decanato,
+     parroco.`parroquia` AS parroquia_parroquia,
+     parroco.`presbitero` AS parroquia_presbitero,
      catequista.`nombre` AS catequista_nombre,
      catequista.`apellidoPaterno` AS catequista_apellidoPaterno,
      catequista.`apellidoMaterno` AS catequista_apellidoMaterno,
      libro.`idLibro` AS libro_idLibro,
      libro.`nombre` AS libro_nombre,
      libro.`descripcion` AS libro_descripcion,
-     parroquia.`logo` AS parroquia_logo
+     parroco.`logo` AS parroquia_logo
 FROM
      `catequizado` catequizado INNER JOIN `registro` registro ON catequizado.`idCatequizado` = registro.`idCatequizado`
      INNER JOIN `ciclo` ciclo ON registro.`idCiclo` = ciclo.`idCiclo`
      INNER JOIN `horario` horario ON registro.`idHorario` = horario.`idHorario`
-     INNER JOIN `parroquia` parroquia ON registro.`idParroquia` = parroquia.`idParroquia`
+     INNER JOIN `parroco` parroco ON registro.`idParroco` = parroco.`idParroco`
      INNER JOIN `catequista` catequista ON registro.`idCatequista` = catequista.`idCatequista`
      INNER JOIN `libro` libro ON registro.`idLibro` = libro.`idLibro`
 WHERE

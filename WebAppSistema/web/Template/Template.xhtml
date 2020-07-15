@@ -56,7 +56,7 @@
 								value="Horarios" outcome="/Views/Horario" icon="ui-icon-gear" />
 							<p:menuitem
 								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
-								value="Presbitero" outcome="/Views/Parroquia"
+								value="Presbitero" outcome="/Views/Parroco"
 								icon="ui-icon-gear" />
 						</p:submenu>
 						<p:submenu label="Inscripciones" icon="ui-icon-plus">
@@ -77,10 +77,10 @@
 								value="Municipios" outcome="/Views/Municipio"
 								icon="ui-icon-gear" />
 						</p:submenu>
-						<p:submenu label="Bautismo" icon="ui-icon-plus">
+						<p:submenu label="Parroquia" icon="ui-icon-plus">
 							<p:menuitem
 								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
-								value="Lugar y Parroquia" outcome="/Views/Bautismo"
+								value="Lugar y Parroquia" outcome="/Views/Parroquia"
 								icon="ui-icon-gear" />
 						</p:submenu>
 						<p:submenu label="Porcentaje" icon="ui-icon-plus">
@@ -89,16 +89,7 @@
 								value="Porcentajes calificación" outcome="/Views/Porcentaje"
 								icon="ui-icon-gear" />
 						</p:submenu>
-						<p:submenu label="Número de casa" icon="ui-icon-plus">
-							<p:menuitem
-								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
-								value="Números" outcome="/Views/Numero" icon="ui-icon-gear" />
-						</p:submenu>
-						<p:submenu label="Código postal" icon="ui-icon-plus">
-							<p:menuitem
-								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"
-								value="Código postal" outcome="/Views/Codigo" icon="ui-icon-gear" />
-						</p:submenu>
+
 						<p:submenu label="Dirección" icon="ui-icon-plus">
 							<p:menuitem
 								disabled="#{loginBean.usuario.codperfil eq 'Administrador'}"

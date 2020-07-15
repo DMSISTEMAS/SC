@@ -1,16 +1,15 @@
 package org.cce.sistema.bean;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.cce.sistema.dao.MunicipioDao;
 import org.cce.sistema.imp.MunicipioDaoImp;
 import org.cce.sistema.model.Municipio;
-import org.primefaces.context.RequestContext;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named("municipio")
 @ViewScoped

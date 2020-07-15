@@ -42,7 +42,7 @@ public class CicloControlDaoImp implements CicloControlDao {
 			lista = session.createQuery("FROM Bitacora AS ciclo WHERE ciclo.registro.horario.idHorario='" + idHorario
 					+ "' " + "AND ciclo.registro.libro.idLibro='" + idLibro + "' AND semana='" + noSemana + "' "
 					+ "AND ciclo.registro.catequista.idCatequista='" + us.getIdCatequista()
-					+ "' AND ciclo.registro.catequizado.estado='Alta'").list();
+					+ "' AND ciclo.registro.estado='Cursando'").list();
 			t.commit();
 			session.close();
 		} catch (HibernateException e) {
