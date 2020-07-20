@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/07/2020 09:51:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="org.cce.sistema.model.Direccion" table="direccion" catalog="db_cce" optimistic-lock="version">
+        <id name="idDireccion" type="java.lang.Integer">
+            <column name="idDireccion" />
+            <generator class="identity" />
+        </id>
+        <property name="calle" type="string">
+            <column name="calle" length="100" />
+        </property>
+        <set name="catequistas" table="catequista" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idDireccion" />
+            </key>
+            <one-to-many class="org.cce.sistema.model.Catequista" />
+        </set>
+        <set name="catequizados" table="catequizado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idDireccion" />
+            </key>
+            <one-to-many class="org.cce.sistema.model.Catequizado" />
+        </set>
+    </class>
+</hibernate-mapping>

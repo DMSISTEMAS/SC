@@ -30,6 +30,7 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>south-street</param-value>
     </context-param>
+
     <welcome-file-list>
         <welcome-file>index.sys</welcome-file>
     </welcome-file-list>

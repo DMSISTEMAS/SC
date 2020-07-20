@@ -1,5 +1,5 @@
 package org.cce.sistema.model;
-// Generated 14/07/2020 11:18:25 PM by Hibernate Tools 4.3.1
+// Generated 17/07/2020 10:02:47 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,7 +17,7 @@ public class Bitacora  implements java.io.Serializable {
      private Long puntualidad;
      private Long asistencia;
      private Long conducta;
-     private Long misa;
+     private Date misa;
      private Long tarea;
      private Long extra;
      private String observaciones;
@@ -26,12 +26,12 @@ public class Bitacora  implements java.io.Serializable {
      private Boolean estatus;
      private Long aseo;
      private String catequesisFamiliar;
-     private String misaSalida;
+     private Date misaSalida;
 
     public Bitacora() {
     }
 
-    public Bitacora(Registro registro, Integer semana, Date fecha, Long puntualidad, Long asistencia, Long conducta, Long misa, Long tarea, Long extra, String observaciones, String ruta, String justificante, Boolean estatus, Long aseo, String catequesisFamiliar, String misaSalida) {
+    public Bitacora(Registro registro, Integer semana, Date fecha, Long puntualidad, Long asistencia, Long conducta, Date misa, Long tarea, Long extra, String observaciones, String ruta, String justificante, Boolean estatus, Long aseo, String catequesisFamiliar, Date misaSalida) {
        this.registro = registro;
        this.semana = semana;
        this.fecha = fecha;
@@ -99,11 +99,11 @@ public class Bitacora  implements java.io.Serializable {
     public void setConducta(Long conducta) {
         this.conducta = conducta;
     }
-    public Long getMisa() {
+    public Date getMisa() {
         return this.misa;
     }
     
-    public void setMisa(Long misa) {
+    public void setMisa(Date misa) {
         this.misa = misa;
     }
     public Long getTarea() {
@@ -162,11 +162,11 @@ public class Bitacora  implements java.io.Serializable {
     public void setCatequesisFamiliar(String catequesisFamiliar) {
         this.catequesisFamiliar = catequesisFamiliar;
     }
-    public String getMisaSalida() {
+    public Date getMisaSalida() {
         return this.misaSalida;
     }
     
-    public void setMisaSalida(String misaSalida) {
+    public void setMisaSalida(Date misaSalida) {
         this.misaSalida = misaSalida;
     }
 

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/07/2020 09:51:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="org.cce.sistema.model.Usuario" table="usuario" catalog="db_cce" optimistic-lock="version">
+        <id name="idUsuario" type="java.lang.Integer">
+            <column name="idUsuario" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="nickname" type="string">
+            <column name="nickname" length="50" />
+        </property>
+        <property name="contrasena" type="string">
+            <column name="contrasena" length="250" />
+        </property>
+        <property name="fechaAlta" type="timestamp">
+            <column name="fechaAlta" length="19" />
+        </property>
+        <property name="estado" type="java.lang.Boolean">
+            <column name="estado" />
+        </property>
+        <property name="perfil" type="string">
+            <column name="perfil" length="50" />
+        </property>
+        <property name="idCatequista" type="java.lang.Integer">
+            <column name="idCatequista" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,608 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+	  xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <link
+            href="https://fonts.googleapis.com/css?family=Barlow:300display=swap"
+            rel="stylesheet" />
+    </h:head>
+    <body>
+        <ui:composition template="/Template/Template.xhtml">
+
+            <ui:define name="top">
+
+            </ui:define>
+
+            <ui:define name="content">
+                <!--Barra de tareas-->
+                <h:form>
+
+                    <b:panel id="topbar"
+                             title="ADMINISTRACIÓN DE
+                             ALUMNOS"
+                             style="margin: 0 auto; text-align: center; font-size: 12px; font-family: 'Barlow', sans-serif">
+
+						<table border="0">
+							<thead>
+								<tr>
+									<th>NUEVO</th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><b:commandButton value=""
+														 oncomplete="PF('dlgAgregar').show()"
+														 style="height: 50px; width: 50px; background-image: url('/img/new.png') !important; 
+														 background-size: 50px; background-repeat: no-repeat"
+														 title="Agregar nuevo registro"
+														 update="frmAgregar:pnlAgregar" /></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+                    </b:panel>
+                </h:form>
+                <!--Barra de tareas-->
+                <!--Formulario principal-->
+                <h:form id="frmPrincipal">
+					<b:growl id="growlMsg" globalOnly="true" placementFrom="left"
+                             show-detail="true" show-summary="false" allowDismiss="true"
+                             delay="10000" escape="true" 
+                             animation-enter="animated bounceInDown"
+                             animation-exit="animated flipOutX"/>
+                    <b:panel id="f" title="REGISTROS"
+                             style="margin: 0 auto; text-align: center; font-size: 10px; font-family: 'Barlow', sans-serif">
+						<b:dataTable var="var" value="#{catequizado.listaCatequizado}">
+							<b:dataTableColumn value="#{var.idCatequizado}" />
+                            <b:dataTableColumn value="#{var.nombre}" />
+                            <b:dataTableColumn value="#{var.apellidoPaterno}" label="Apellido Paterno" />
+                            <b:dataTableColumn value="#{var.apellidoMaterno}" label="Apellido Materno"/>
+                            <b:dataTableColumn value="#{var.telefono}" />
+                            <b:dataTableColumn value="#{var.fechaNacimiento}" label="Fecha de nacimiento"/>
+							<b:dataTableColumn value="#{var.registroEstado}" />
+
+							<b:dataTableColumn  value="" label="Actualizar">
+                                <b:commandButton value=""
+                                                 size="sm"
+                                                 title="Editar registro" 
+                                                 oncomplete="PF('dlgEditar').show()"
+                                                 update="frmEditar"
+                                                 style="background-image: url('/img/edit.png') !important; 
+                                                 background-repeat: no-repeat; height: 28px; width: 28px; background-size: 26px;">
+									<f:setPropertyActionListener value="#{var}"
+																 target="#{catequizado.catequizadoEditar}" />
+                                </b:commandButton>
+                            </b:dataTableColumn>
+
+							<b:dataTableColumn  value="" label="Detalle">
+								<h:commandLink value="" target="_blank"
+											   actionListener="#{catequizado.imprimirDetalle(var.idCatequizado)}">
+									<h:graphicImage value="/img/detalle.png"
+													style="height: 28px; width: 28px;" />
+								</h:commandLink>
+                            </b:dataTableColumn>
+
+							<b:dataTableColumn  value="" label="Borrar">
+                                <b:commandButton value=""
+                                                 size="sm"
+                                                 title="Borrar registro" 
+                                                 style="background-image: url('/img/delete.png') !important; 
+                                                 background-repeat: no-repeat; height: 28px; width: 28px; background-size: 26px;">
+									<f:setPropertyActionListener value="#{var}"
+																 target="#{catequizado.catequizadoEditar}" />
+                                </b:commandButton>
+                            </b:dataTableColumn>
+
+						</b:dataTable>
+
+                    </b:panel>
+                </h:form>
+                <!--Formulario principal-->
+
+
+                <!--Diálogo para agregar-->
+                <h:form id="frmAgregar" enctype="multipart/form-data">
+                    <p:dialog id="dialogo" widgetVar="dlgAgregar"
+                              header="Agregar nuevo registro" showEffect="drop"
+                              hideEffect="slide" resizable="true" responsive="true"
+                              style="font-size: 13px" width="800">
+                        <b:panel id="pnlAgregar">
+                            <b:messages id="msg" showDetail="true" />
+                            <b:panelGrid id="panelAgregar" size="lg"
+										 colSpans="3,9"
+										 style="margin: 0 auto">
+
+                                <h:outputLabel for="nombre" value="Nombre" />
+                                <b:inputText id="nombre" 
+											 style="width: 300px"
+                                             value="#{catequizado.catequizado.nombre}" 
+											 required="true"
+                                             requiredMessage="Requiere nombre" 
+											 placeholder="Nombre">
+                                    <b:message for="nombre" />
+                                </b:inputText>
+
+
+                                <h:outputLabel for="ap" value="Apellido paterno" />
+                                <b:inputText id="ap" 
+											 style="width: 300px"
+                                             value="#{catequizado.catequizado.apellidoPaterno}"
+                                             required="true" 
+											 requiredMessage="Requiere apellido paterno"
+                                             placeholder="Apellido Paterno">
+                                    <b:message for="ap" />
+                                </b:inputText>
+
+
+                                <h:outputLabel for="am" value="Apellido materno" />
+                                <b:inputText id="am" 
+											 style="width: 300px"
+                                             value="#{catequizado.catequizado.apellidoMaterno}"
+                                             required="true" 
+											 requiredMessage="Requiere apellido materno"
+                                             placeholder="Apellido materno">
+                                    <b:message for="am" />
+                                </b:inputText>
+
+
+                                <h:outputLabel for="tel" value="Teléfono" />
+                                <b:inputText id="tel" style="width: 200px"
+                                             value="#{catequizado.catequizado.telefono}" 
+											 required="true"
+                                             requiredMessage="Requiere teléfono" placeholder="Teléfono"
+                                             mask="(999) 999-9999">
+                                    <b:message for="tel" />
+                                </b:inputText>
+
+
+                                <h:outputLabel for="corr" value="Correo" />
+                                <b:inputText id="corr" style="width: 200px"
+                                             value="#{catequizado.catequizado.correo}" required="false"
+                                             placeholder="Correo (Opcional)">
+                                    <b:message for="corr" />
+                                </b:inputText>
+
+                                <h:outputLabel for="fecha" value="Fecha de nacimiento" />
+                                <b:datepicker id="fecha" 
+											  style="width: 300px;"
+											  value="#{catequizado.catequizado.fechaNacimiento}"
+											  required="true" 
+											  placeholder="Fecha de nacimiento"
+											  requiredMessage="Requiere fecha de nacimiento">
+									<b:message for="fecha" />
+                                </b:datepicker>
+
+                                <h:outputLabel value="Ingresa Parroquia" 
+											   for="byBautismo" />
+								<table border="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p:autoComplete id="byBautismo" size="55"
+																onfocus="javascript:this.select()"
+																placeholder="Ingresa p. ej AA o ZZ" 
+																dropdown="true"
+																value="#{catequizado.lugar}"
+																completeMethod="#{catequizado.completeParroquia}" 
+																required="true"
+																requiredMessage="Campo requerido">
+													<b:message for="byBautismo" />
+												</p:autoComplete>
+                                            </td>
+                                            <td>
+                                                <b:commandButton value="+" 
+																 look="primary"
+																 title="Agregar Parroquia"
+																 update="frmAgregarBau:panelBautismo"
+																 oncomplete="PF('dlgBautismo').show()" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+								<br></br>
+
+                                <h:outputLabel for="fechaBautismo" value="Fecha de Bautismo" />
+                                <b:datepicker id="fechaBautismo" 
+											  style="width: 300px;"
+											  value="#{catequizado.catequizado.fechaBautismo}" 
+											  required="true"
+											  placeholder="Fecha de Bautismo" 
+											  requiredMessage="Requiere fecha de Bautismo">
+                                    <b:message for="fechaBautismo" />
+                                </b:datepicker>
+
+                                <h:outputLabel for="papa" value="Nombre del Papá" />
+                                <b:inputText id="papa" style="width: 300px"
+                                             value="#{catequizado.catequizado.nombrePapa}" required="true"
+                                             requiredMessage="Nombre del Papá" placeholder="Nombre del Papá">
+                                    <b:message for="papa" />
+                                </b:inputText>
+
+                                <h:outputLabel for="mama" value="Nombre de la Mamá" />
+                                <b:inputText id="mama" style="width: 300px"
+                                             value="#{catequizado.catequizado.nombreMama}" required="true"
+                                             requiredMessage="Nombre del Mamá"
+                                             placeholder="Nombre de la Mamá">
+                                    <b:message for="mama" />
+                                </b:inputText>
+
+                                <h:outputLabel for="obs" value="Observaciones" />
+                                <b:inputText id="obs" style="width: 300px"
+											 value="#{catequizado.catequizado.observaciones}"
+											 required="false" requiredMessage="Observaciones"
+											 placeholder="Observaciones">
+                                    <b:message for="obs" />
+                                </b:inputText>
+
+                                <h:outputLabel value="Ingresa Calle" for="byDireccion" />
+								<table border="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+												<p:autoComplete id="byDireccion" size="55"
+																onfocus="javascript:this.select()"
+																placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
+																value="#{catequizado.address}"
+																completeMethod="#{catequizado.completeDireccion}"
+																required="true" requiredMessage="Campo requerido">
+													<b:message for="byDireccion" />
+												</p:autoComplete>
+                                            </td>
+                                            <td>
+												<b:commandButton value="+"
+																 look="primary"
+																 title="Agregar Dirección"
+																 update="frmAgregarDir:direccion"
+																 oncomplete="PF('dlgDireccion').show()" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+								<br></br>
+
+                                <h:outputLabel value="Ingresa Municipio" for="byMunicipio" />
+								<table border="0">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+												<p:autoComplete id="byMunicipio" size="55"
+																onfocus="javascript:this.select()"
+																placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
+																value="#{catequizado.municipio}"
+																completeMethod="#{catequizado.completeMunicipio}"
+																required="true" requiredMessage="Campo requerido">
+													<p:message for="byMunicipio" />
+												</p:autoComplete>
+                                            </td>
+                                            <td>
+                                                <b:commandButton value="+" 
+																 look="primary"
+																 title="Agregar municipio"
+																 update="frmAgregarMun:panelMunicipio"
+																 oncomplete="PF('dlgMunicipio').show()" />
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+								<br></br>
+                                <h:outputLabel value="Foto" />
+                                <p:fileUpload value="#{catequizado.file}" mode="simple" />
+                            </b:panelGrid>
+                        </b:panel>
+                        <p:spacer width="710" height="20" /> 
+                        <b:commandButton id="track"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         ajax="false" value="" update="pnlAgregar, msg"
+                                         title="Guardar registro" actionListener="#{catequizado.guardar()}">
+                        </b:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Diálogo para agregar-->
+
+                <!--Diálogo para editar-->
+                <h:form id="frmEditar">
+                    <p:growl id="msgEditar" showDetail="true" showSummary="true" />
+                    <p:dialog id="dialogoEditar" width="800"
+                              header="Editar registro de: #{catequizado.catequizadoEditar.nombre} #{catequizado.catequizadoEditar.apellidoPaterno} #{catequizado.catequizadoEditar.apellidoMaterno}"
+                              widgetVar="dlgEditar" resizable="true" showEffect="clip"
+                              hideEffect="fold" style="font-size: 13px">
+                        <p:panelGrid id="pnlEditar" columns="3">
+
+                            <p:outputLabel for="nombre" value="Nombre" />
+                            <p:inputText id="nombre" style="width: 300px"
+                                         value="#{catequizado.catequizadoEditar.nombre}" required="true"
+                                         requiredMessage="Requiere nombre" placeholder="Nombre">
+                                <p:message for="nombre" />
+                            </p:inputText>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel for="ap" value="Apellido paterno" />
+                            <p:inputText id="ap" style="width: 300px"
+                                         value="#{catequizado.catequizadoEditar.apellidoPaterno}"
+                                         required="true" requiredMessage="Requiere apellido paterno"
+                                         placeholder="Apellido Paterno">
+                                <p:message for="ap" />
+                            </p:inputText>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel for="am" value="Apellido materno" />
+                            <p:inputText id="am" style="width: 300px"
+                                         value="#{catequizado.catequizadoEditar.apellidoMaterno}"
+                                         required="true" requiredMessage="Requiere apellido materno"
+                                         placeholder="Apellido materno">
+                                <p:message for="am" />
+                            </p:inputText>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel for="tel" value="Teléfono" />
+                            <p:inputMask id="tel" style="width: 200px"
+                                         value="#{catequizado.catequizadoEditar.telefono}" required="true"
+                                         requiredMessage="Requiere teléfono" placeholder="Teléfono"
+                                         mask="(999) 999-9999">
+                                <p:message for="tel" />
+                            </p:inputMask>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel for="corr" value="Correo" />
+                            <p:inputText id="corr" style="width: 200px"
+                                         value="#{catequizado.catequizadoEditar.correo}" required="false"
+                                         placeholder="Correo (Opcional)">
+                                <p:message for="corr" />
+                            </p:inputText>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel for="fecha" value="Fecha de nacimiento" />
+                            <p:calendar id="fecha" yearRange="1950:2025" effect="blind"
+                                        effectDuration="13000" pages="2" showOn="button"
+                                        style="width: 150px;"
+                                        value="#{catequizado.catequizadoEditar.fechaNacimiento}"
+                                        required="true" placeholder="Fecha de nacimiento"
+                                        pattern="yyyy-MM-dd" mask="true">
+                                <p:message for="fecha" />
+                            </p:calendar>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel value="Ingresa Parroquia" for="byBautismo" /> 
+                            <p:autoComplete id="byBautismo" size="55" 
+                                            onfocus="javascript:this.select()" 
+                                            placeholder="Ingresa p. ej AA o ZZ" dropdown="true" 
+                                            value="#{catequizado.catequizadoEditar.parroquia.lugar}" 
+                                            completeMethod="#{catequizado.completeParroquia}" required="true" 
+                                            requiredMessage="Campo requerido"> 
+                                <p:message for="byBautismo" /> 
+                            </p:autoComplete> 
+                            <p:commandButton value="+" update="frmAgregarBau:panelBautismo" 
+                                             oncomplete="PF('dlgBautismo').show()" /> 
+
+
+                            <p:outputLabel for="fechaBautismo" value="Fecha de Bautismo" />
+                            <p:calendar id="fechaBautismo" yearRange="1950:2025"
+                                        effect="blind" effectDuration="13000" pages="2" showOn="button"
+                                        style="width: 150px;"
+                                        value="#{catequizado.catequizadoEditar.fechaBautismo}"
+                                        required="true" placeholder="Fecha de Bautismo"
+                                        pattern="yyyy-MM-dd" mask="true">
+                                <p:message for="fechaBautismo" />
+                            </p:calendar>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel for="papa" value="Nombre del Papá" />
+                            <p:inputText id="papa" style="width: 300px"
+                                         value="#{catequizado.catequizadoEditar.nombrePapa}"
+                                         required="true" requiredMessage="Nombre del Papá"
+                                         placeholder="Nombre del Papá">
+                                <p:message for="papa" />
+                            </p:inputText>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel for="mama" value="Nombre de la Mamá" />
+                            <p:inputText id="mama" style="width: 300px"
+                                         value="#{catequizado.catequizadoEditar.nombreMama}"
+                                         required="true" requiredMessage="Nombre del Mamá"
+                                         placeholder="Nombre de la Mamá">
+                                <p:message for="mama" />
+                            </p:inputText>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel for="obs" value="Observaciones" />
+                            <p:inputTextarea id="obs" style="width: 300px"
+                                             value="#{catequizado.catequizadoEditar.observaciones}"
+                                             required="false" requiredMessage="Observaciones"
+                                             placeholder="Observaciones">
+                                <p:message for="obs" />
+                            </p:inputTextarea>
+                            <p:outputLabel value="" />
+
+                            <p:outputLabel value="Ingresa Calle" for="byDireccion" />
+                            <p:autoComplete id="byDireccion" size="55"
+                                            onfocus="javascript:this.select()"
+                                            placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
+                                            value="#{catequizado.catequizadoEditar.direccion.calle}"
+                                            completeMethod="#{catequizado.completeDireccion}" required="true"
+                                            requiredMessage="Campo requerido">
+                                <p:message for="byDireccion" />
+                            </p:autoComplete>
+                            <p:commandButton value="+" update="frmAgregarDir:direccion"
+                                             oncomplete="PF('dlgDireccion').show()" />
+
+                            <p:outputLabel value="Ingresa Municipio" for="byMunicipio" />
+                            <p:autoComplete id="byMunicipio" size="55"
+                                            onfocus="javascript:this.select()"
+                                            placeholder="Ingresa p. ej AA o ZZ" dropdown="true"
+                                            value="#{catequizado.catequizadoEditar.municipio.nombre}"
+                                            completeMethod="#{catequizado.completeMunicipio}" required="true"
+                                            requiredMessage="Campo requerido">
+                                <p:message for="byMunicipio" />
+                            </p:autoComplete>
+                            <p:commandButton value="+" update="frmAgregarMun:panelMunicipio"
+                                             oncomplete="PF('dlgMunicipio').show()" />
+
+
+                            <p:outputLabel value="Foto" />
+                            <p:fileUpload value="#{catequizado.file}" mode="simple" />
+
+                        </p:panelGrid>
+						<p:spacer width="700" height="5" /> 
+                        <p:commandButton value=""
+                                         style="height:
+                                         50px; width: 50px; background-image:
+                                         url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat:
+                                         no-repeat"
+                                         title="Actualizar registro"
+                                         actionListener="#{catequizado.actualizar()}"
+                                         oncomplete="PF('dlgEditar').hide()" update="frmPrincipal" />
+                    </p:dialog>
+                </h:form>
+                <!--Diálogo para editar-->
+
+                <!--Diálogo para agregar la dirección-->
+                <h:form id="frmAgregarDir">
+
+                    <p:dialog id="dlgDir" widgetVar="dlgDireccion"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="600">
+                        <p:panel id="pnlDireccion">
+                            <p:messages id="msgDir" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelDireccion" columns="2"
+                                         style="margin: 0 auto; width: 100%; font-size: 14px">
+
+                                <p:outputLabel for="direccion" value="Nombre de la calle" />
+                                <p:inputText id="direccion" value="#{direccion.direccion.calle}"
+                                             required="true" requiredMessage="Requiere nombre de la calle"
+                                             style="width: 100%">
+                                    <p:message for="direccion" />
+                                </p:inputText>
+
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="700" height="5" />
+                        <p:commandButton id="trackDir"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         value="" update="frmAgregar:msg" title="Guardar registro"
+                                         oncomplete="PF('dlgDireccion').hide()"
+                                         actionListener="#{direccion.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Inicia Diálogo para agregar la dirección-->      
+
+                <!--Inicia Diálogo para agregar-->
+                <h:form id="frmAgregarMun">
+
+                    <p:dialog id="dlgMunicipio" widgetVar="dlgMunicipio"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="600">
+                        <p:panel id="pnlMunicipio">
+                            <p:messages id="msg" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelMunicipio" columns="2"
+                                         style="margin: 0 auto; width: 100%; font-size: 14px">
+
+                                <p:outputLabel for="nombre" value="Nombre del municipio" />
+                                <p:inputText id="nombre" value="#{municipio.municipio.nombre}"
+                                             required="true" requiredMessage="Requiere nombre del libro"
+                                             style="width: 100%">
+                                    <p:message for="nombre" />
+                                </p:inputText>
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="520" height="5" />
+                        <p:commandButton id="trackMunicipio"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         value="" update="frmAgregar:msg" title="Guardar registro"
+                                         oncomplete="PF('dlgMunicipio').hide()"
+                                         actionListener="#{municipio.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Fin Diálogo para agregar Municipio-->
+
+                <!--Inicia Diálogo para agregar-->
+                <h:form id="frmAgregarBau">
+
+                    <p:dialog id="dlgBautismo" widgetVar="dlgBautismo"
+                              header="Agregar nuevo registro" showEffect="clip"
+                              hideEffect="explode" resizable="false" responsive="true"
+                              width="600">
+                        <p:panel id="pnlBautismo">
+                            <p:messages id="msg" showDetail="true" closable="true" />
+                            <p:panelGrid id="panelBautismo" columns="2"
+                                         style="margin: 0 auto; width: 100%; font-size: 14px">
+
+                                <p:outputLabel for="lugar" value="Nombre del lugar" />
+                                <p:inputText id="lugar" value="#{bautismo.bautismo.lugar}"
+                                             required="true" requiredMessage="Requiere nombre del lugar"
+                                             style="width: 100%">
+                                    <p:message for="lugar" />
+                                </p:inputText>
+
+                                <p:outputLabel for="parroquia" value="Nombre de la Parroquia" />
+                                <p:inputText id="parroquia"
+                                             value="#{bautismo.bautismo.parroquia}" required="true"
+                                             requiredMessage="Requiere descripción de la Parroquia"
+                                             style="width: 100%">
+                                    <p:message for="parroquia" />
+                                </p:inputText>
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:spacer width="520" height="5" />
+                        <p:commandButton id="trackBautismo"
+                                         style="height: 50px; width: 50px; background-image: url('/img/save.png') !important;
+                                         background-size: 50px; background-repeat: no-repeat"
+                                         value="" update="frmAgregar:msg" title="Guardar registro"
+                                         oncomplete="PF('dlgBautismo').hide()"
+                                         actionListener="#{bautismo.guardar()}">
+                        </p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <!--Fin Diálogo para agregar-->
+
+
+            </ui:define>
+
+
+        </ui:composition>
+    </body>
+</html>

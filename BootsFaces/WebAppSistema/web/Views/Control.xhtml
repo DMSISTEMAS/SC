@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:head>
+        <link
+            href="https://fonts.googleapis.com/css?family=Barlow:300display=swap"
+            rel="stylesheet" />
+    </h:head>
+    <body>
+        <ui:composition template="/Template/Template.xhtml">
+
+            <ui:define name="top">
+
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form>
+                    <b:panel title="ADMINISTRACIÓN DE CALIFICACIONES-CICLO ESCOLAR 2019-2020" collapsible="true"
+                             look="primary" style="margin: 0 auto; text-align: center; font-size: 12px; font-family: 'Barlow', sans-serif">
+                        <table border="0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30px"></th>
+                                    <th>Semanas</th>
+                                    <th style="width: 10px"></th>
+                                    <th>Horario</th>
+                                    <th style="width: 10px"></th>
+                                    <th>Libro</th>
+                                    <th style="width: 10px"></th>
+                                    <th>Buscar</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 30px"></td>
+                                    <td><b:selectOneMenu id="semana" title="Selecciona semana"
+                                                         value="#{control.semana}" style="width:150px">
+                                            <f:selectItem itemLabel="Selecione semana" itemValue="" />
+                                            <f:selectItems value="#{control.listaSemanas}" />
+                                        </b:selectOneMenu></td>
+                                    <td style="width: 10px"></td>
+                                    <td><b:selectOneMenu id="horario"
+                                                         title="Selecciona horario" value="#{control.idHorario}"
+                                                         style="width:150px">
+                                            <f:selectItem itemLabel="Selecione horario" itemValue="" />
+                                            <f:selectItems value="#{control.listaHorarios}" />
+                                        </b:selectOneMenu></td>
+                                    <td style="width: 10px"></td>
+                                    <td><b:selectOneMenu id="libro" title="Selecciona libro"
+                                                         value="#{control.idLibro}" style="width:150px">
+                                            <f:selectItem itemLabel="Selecione libro" itemValue="" />
+                                            <f:selectItems value="#{control.listaLibros}" />
+                                        </b:selectOneMenu></td>
+                                    <td style="width: 10px"></td>
+                                    <td>
+                                        <b:commandButton value="" 
+                                                         update="frmPrincipal"
+                                                         actionListener="#{control.listaPorSemana()}"
+                                                         style="height: 38px; width: 38px; background-image: url('/img/search.png') !important;
+                                                         background-size: 36px; background-repeat: no-repeat"
+                                                         title="Buscar" 
+                                                         onclick="ajax:blockUIBean.waitFiveSeconds()"/></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </b:panel>
+                </h:form>
+
+                <!-- INICIA FORMUALARIO PRINCIPAL -->
+                <h:form id="frmPrincipal">
+                    <b:growl id="growlMsg" globalOnly="true" placementFrom="left"
+                             show-detail="true" show-summary="false" allowDismiss="true"
+                             delay="10000" escape="true" 
+                             animation-enter="animated bounceInDown"
+                             animation-exit="animated flipOutX"/>
+                    <b:panel id="pnl" title="REGISTROS: A=Asistencia,
+                             P=Puntualidad, C=Conducta, AM=Asistencia a Misa, T=Tarea,
+                             CF=Catequesis familiar, CE=Calificación Extra, O=Observaciones,
+                             J=Justificante, L=Limpieza"
+                             style="margin: 0 auto; font-size: 11px; text-align: center; font-family: 'Barlow', sans-serif">
+                        <b:dataTable id="tblCiclo" value="#{control.listaPorSemana}"
+                                     var="c"
+                                     caption="">
+                            <b:dataTableColumn value="#{c.semana}" />
+                            <b:dataTableColumn value="#{c.fecha}" />
+                            <b:dataTableColumn value="#{c.registro.catequizado.nombre}" />
+                            <b:dataTableColumn value="#{c.registro.catequizado.apellidoPaterno}" label="Apellido paterno" />
+                            <b:dataTableColumn value="#{c.registro.catequizado.apellidoMaterno}" label="Apellido materno" />
+                            <b:dataTableColumn value="#{c.asistencia}" />
+                            <b:dataTableColumn value="#{c.puntualidad}" />
+                            <b:dataTableColumn value="#{c.conducta}" />
+                            <b:dataTableColumn value="#{c.misa}" label="Misa entrada" />
+                            <b:dataTableColumn value="#{c.misaSalida}" label="Misa salida"/>
+                            <b:dataTableColumn value="#{c.puntualidad}" />
+                            <b:dataTableColumn value="#{c.tarea}" />
+                            <b:dataTableColumn value="#{c.catequesisFamiliar}" label="Catequesis familiar" />
+                            <b:dataTableColumn value="#{c.extra}" />
+                            <b:dataTableColumn value="#{c.aseo}" />
+                            <b:dataTableColumn value="#{c.observaciones}" />
+                            <b:dataTableColumn value="#{c.justificante}" />
+
+                            <b:dataTableColumn  value="" label="Actualizar">
+                                <b:commandButton value=""
+                                                 size="sm"
+                                                 title="Editar registro" 
+                                                 oncomplete="PF('dlgEditar').show()"
+                                                 update="frmEditar"
+                                                 style="background-image: url('/img/edit.png') !important; 
+                                                 background-repeat: no-repeat; height: 28px; width: 28px; background-size: 26px;">
+                                    <f:setPropertyActionListener value="#{c}"
+                                                                 target="#{control.ciclo1920}" />
+                                </b:commandButton>
+                            </b:dataTableColumn>
+
+                        </b:dataTable>
+                    </b:panel>
+                </h:form>
+                <!-- TERMINA FORMULARIO PRINCIPAL -->
+
+                <!-- INICIA FORMUALARIO PARA EDITAR -->
+                <h:form id="frmEditar">
+                    <b:growl id="msgEditar" showDetail="true" showSummary="true" />
+                    <p:dialog id="dialogoEditar"
+                              header="Editar registro de: #{control.ciclo1920.registro.catequizado.nombre} #{control.ciclo1920.registro.catequizado.apellidoPaterno} #{control.ciclo1920.registro.catequizado.apellidoMaterno} / Fecha: #{control.ciclo1920.fecha}"
+                              widgetVar="dlgEditar" resizable="true" showEffect="clip"
+                              hideEffect="fold"  style="font-size: 13px">
+                        <b:panel id="pnlEditar">
+                            <b:panelGrid columns="1" size="sm">
+
+                                <h:outputLabel value="Asitencia" />
+                                <b:inputText value="#{control.ciclo1920.asistencia}"
+                                             placeholder="Asistencia" />
+
+                                <h:outputLabel value="Puntualidad" />
+                                <b:inputText value="#{control.ciclo1920.puntualidad}"
+                                             placeholder="Puntualidad" />
+
+                                <h:outputLabel value="Conducta" />
+                                <b:inputText value="#{control.ciclo1920.conducta}"
+                                             placeholder="Conducta" />
+
+                                <h:outputLabel value="Tarea" />
+                                <b:inputText value="#{control.ciclo1920.tarea}"
+                                             placeholder="Tarea" />
+
+                                <h:outputLabel value="Catequesis familiar" />
+                                <b:inputText value="#{control.ciclo1920.catequesisFamiliar}"
+                                             placeholder="Catequesis familiar" />
+
+                                <h:outputLabel value="Calif. Extra" />
+                                <b:inputText value="#{control.ciclo1920.extra}"
+                                             placeholder="Calif. Extra" />
+
+                                <h:outputLabel value="Observaciones" />
+                                <b:inputText value="#{control.ciclo1920.observaciones}"
+                                             placeholder="Observaciones" />
+
+                                <h:outputLabel value="Justificante" />
+                                <b:inputText value="#{control.ciclo1920.justificante}"
+                                             placeholder="Justificante" />
+
+                                <h:outputLabel value="Aseo" />
+                                <b:inputText value="#{control.ciclo1920.aseo}" placeholder="Aseo" />
+                            </b:panelGrid>
+                            </b:panel>
+                            <p:spacer height="50" width="340" />
+                            <b:commandButton value=""
+                                             style="height:
+                                             50px; width: 50px; background-image:
+                                             url('/img/save.png') !important;
+                                             background-size: 50px; background-repeat:
+                                             no-repeat"
+                                             title="Actualizar registro"
+                                             actionListener="#{control.actualizar()}"
+                                             oncomplete="PF('dlgEditar').hide()" update="frmPrincipal" />
+                    </p:dialog>
+                </h:form>
+                <!-- TERMINA FORMUALARIO PARA EDITAR -->
+            </ui:define>
+
+        </ui:composition>
+        <script>
+            $.blockUI.defaults.css.width = '20%';
+            $.blockUI.defaults.css.left = '40%';
+            $.blockUI.defaults.css.height = '5em';
+            $.blockUI.defaults.css.borderRadius = '10px';
+            $.blockUI.defaults.overlayCSS.opacity = 0.5;
+            $.blockUI.defaults.message = '<div style="padding-top:1em"><b:spinner name="circle-o-notch" size="2x" /> Please hold the line </div>';
+        </script>
+
+
+    </body>
+</html>
