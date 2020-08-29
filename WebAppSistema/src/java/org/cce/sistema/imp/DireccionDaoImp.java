@@ -100,7 +100,7 @@ public class DireccionDaoImp implements DireccionDao {
         List<String> lista = null;
         Session session = HibernateUtil.getSf().openSession();
         Transaction t = session.beginTransaction();
-        String hql = "SELECT DISTINCT calle ||  '_' || idDireccion FROM Direccion WHERE calle LIKE'" + nombre + "%'";
+        String hql = "SELECT DISTINCT calle FROM Direccion WHERE calle LIKE'" + nombre + "%'";
         try {
             lista = session.createQuery(hql).list();
             t.commit();
